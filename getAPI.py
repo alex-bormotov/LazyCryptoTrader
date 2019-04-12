@@ -7,7 +7,7 @@ from telebot import types
 
 f = open("telegram_api.conf", "r")
 bot = telebot.TeleBot(f.read().split()[0])
-# bot = telebot.TeleBot("YOUR Telagram API Key")
+# bot = telebot.TeleBot("YOUR Telegram API Key")
 
 key = ""  # MUST BE len() 64
 secret = ""  # MUST BE len() 64
