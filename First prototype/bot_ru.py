@@ -72,7 +72,7 @@ def hello_user(message):
 
         bot.send_message(
             message.from_user.id,
-            "Ты уже зарегистрирован, так что можешь переслать мне пост с сигналом ...",
+            "Ты уже зарегистрирован, так что можешь переслать мне пост с сигналами ...",
         )
         bot.register_next_step_handler(message, get_forward)
 
