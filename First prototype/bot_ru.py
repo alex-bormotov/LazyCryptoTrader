@@ -36,7 +36,6 @@ balance_btc = None
 balance_coin = None
 buy_after_exchange_fee = None
 orders_executed = []
-block_user_input = False
 
 example_signal_post = "#BTG /BTC\n\nПокупка 311200 и ниже \n\nЦели:\n391100\n491100\n591100\n691100\n791100\n\nСтоп ставим на 221100\n\nВыделяем до 10% от депозита"
 
@@ -44,58 +43,45 @@ example_signal_post = "#BTG /BTC\n\nПокупка 311200 и ниже \n\nЦел
 @bot.message_handler(content_types=["text"])
 def hello_user(message):
 
-    global block_user_input
+    bot.send_message(
+        message.from_user.id,
+        "Привет "
+        + str(message.from_user.username)
+        + "\n"
+        + "Если тебе нужно будет меня перезагрузить отправь мне /restart",
+    )
+    bot.send_message(
+        message.from_user.id,
+        "Ниже пример поста с сигналами.\nТы должен пересылать мне посты только в таком формате!\n",
+    )
+    bot.send_message(message.from_user.id, example_signal_post)
 
-    try:
-        # bot.send_message(message.from_user.id, str(block_user_input))
-        if block_user_input == False:
-            markup = types.ReplyKeyboardMarkup()
-            itembtna = types.KeyboardButton("/start")
-            itembtnb = types.KeyboardButton("/restart")
-            markup.row(itembtna, itembtnb)
+    if doesFileExists("%s.json" % message.from_user.id):
+        with open("%s.json" % message.from_user.id, "r") as read_file:
+
+            global data
+            global key
+            global secret
+            global exchange
+
+            data = json.load(read_file)
+            key = data["key"]
+            secret = data["secret"]
+            exchange = ccxt.binance(
+                {"apiKey": key, "secret": secret, "enableRateLimit": True}
+            )
             bot.send_message(
                 message.from_user.id,
-                "Привет :) "
-                + str(message.from_user.username)
-                + " ;)\nНиже пример поста с сигналами.\n"
-                + "Ты должен пересылать мне посты только в таком формате!\n",
-                reply_markup=markup,
+                "Ты уже зарегистрирован, так что можешь переслать мне пост с сигналами ...",
             )
-            if doesFileExists("%s.json" % message.from_user.id):
-                with open("%s.json" % message.from_user.id, "r") as read_file:
+            bot.register_next_step_handler(message, get_forward)
 
-                    global data
-                    global key
-                    global secret
-                    global exchange
-
-                    data = json.load(read_file)
-                    key = data["key"]
-                    secret = data["secret"]
-                    exchange = ccxt.binance(
-                        {"apiKey": key, "secret": secret, "enableRateLimit": True}
-                    )
-
-                    bot.send_message(message.from_user.id, example_signal_post)
-
-                    bot.send_message(
-                        message.from_user.id,
-                        "Ты уже зарегистрирован, так что можешь переслать мне пост с сигналами ...",
-                    )
-                    bot.register_next_step_handler(message, get_forward)
-
-            else:
-                bot.send_message(
-                    message.from_user.id,
-                    "Я не нашел твою учетку, давай создадим ее ...",
-                )
-                bot.send_message(message.from_user.id, "Введи Binance API KEY:")
-                bot.register_next_step_handler(message, get_key)
-    except:
+    else:
         bot.send_message(
-            message.from_user.id,
-            "Надо подождать завершения текущего цикла, перед началом нового...",
+            message.from_user.id, "Я не нашел твою учетку, давай создадим ее ..."
         )
+        bot.send_message(message.from_user.id, "Введи Binance API KEY:")
+        bot.register_next_step_handler(message, get_key)
 
 
 def doesFileExists(filePathAndName):
@@ -334,13 +320,12 @@ def get_amount(message):
     global balance_btc
     global buy_after_exchange_fee
     global coin
-    global block_user_input
 
     min_trade_amount = 5 / exchange.fetch_ticker("BTC/USDT")["low"]
 
     try:
-        if (float(message.text) > 0) and (float(message.text) < 101):
-            amount = (float(balance_btc) / 100) * float(message.text)
+        amount = (float(balance_btc) / 100) * float(message.text)
+        if amount <= balance_btc and amount > 0:
             if amount > min_trade_amount:
                 buy_after_exchange_fee = (amount / buy) - (
                     ((amount / buy) / 100) * exchange_fee
@@ -359,7 +344,6 @@ def get_amount(message):
                 bot.send_message(
                     message.from_user.id, "Чтобы подтвердить трейд напиши мне: YES"
                 )
-                block_user_input = True
                 bot.register_next_step_handler(message, trader)
             else:
                 bot.send_message(
@@ -373,6 +357,13 @@ def get_amount(message):
                     + " BTC! ~$10",
                 )
                 bot.register_next_step_handler(message, get_amount)
+
+        else:
+            bot.send_message(
+                message.from_user.id, "Это больше твое BTC баланса, попробуй снова!"
+            )
+            bot.register_next_step_handler(message, get_amount)
+
     except:
         bot.send_message(message.from_user.id, "Введи корректный процент (число)!")
         bot.register_next_step_handler(message, get_amount)
@@ -457,7 +448,6 @@ def sell_order(message):
     global selected_sell_target
     global stop_loss
     global buy_after_exchange_fee
-    global block_user_input
 
     buy_after_exchange_fee = float(str(buy_after_exchange_fee)[:10])
 
@@ -472,17 +462,20 @@ def sell_order(message):
     bot.send_message(
         message.from_user.id, "Ордер на продажу и стоп лосс размещены, желаю профита ;)"
     )
+    bot.send_message(
+        message.from_user.id,
+        "Чтобы снова воспользоваться моими услугами отправь мне /start :)",
+    )
 
-    block_user_input = False
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 
 def restart_bot(message):
 
-    global block_user_input
-
     if message.text == "/restart":
-        block_user_input = False
+        bot.send_message(
+            message.from_user.id, "Рестарт завершен, отправь мне /start для начала..."
+        )
         os.execl(sys.executable, sys.executable, *sys.argv)
 
 
