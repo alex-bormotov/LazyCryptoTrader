@@ -321,7 +321,7 @@ def get_amount(message):
     global buy_after_exchange_fee
     global coin
 
-    min_trade_amount = 5 / exchange.fetch_ticker("BTC/USDT")["low"]
+    min_trade_amount = 10 / exchange.fetch_ticker("BTC/USDT")["low"]
 
     try:
         amount = (float(balance_btc) / 100) * float(message.text)
