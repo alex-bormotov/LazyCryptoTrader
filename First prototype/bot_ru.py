@@ -427,8 +427,6 @@ def sell_order(message):
     global buy_after_exchange_fee
 
     buy_after_exchange_fee = float(str(buy_after_exchange_fee)[:10])
-    bot.send_message(message.from_user.id, buy_after_exchange_fee)
-    bot.send_message(message.from_user.id, str(orders_executed[0]))
 
     stop_loss_limit_order = exchange.create_order(
         pair,
