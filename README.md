@@ -1,4 +1,4 @@
-[![Video Demo]](https://github.com/idl921/LazyCryptoTrader/blob/master/First%20prototype/Video.mov)
+[Video Demo](https://github.com/idl921/LazyCryptoTrader/blob/master/First%20prototype/Video.mov)
 
 # LazyCryptoTrader
 This is my first project :)
