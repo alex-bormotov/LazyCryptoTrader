@@ -1,4 +1,3 @@
-[Video Demo](https://github.com/idl921/LazyCryptoTrader/blob/master/First%20prototype/Video.mov)
 
 # LazyCryptoTrader
 This is my first project :)
@@ -9,9 +8,7 @@ pip3 install mpu
 pip3 install ccxt
 pip3 pyTelegramBotAPI
 
-Create telegram bot:
-
-https://core.telegram.org/bots#3-how-do-i-create-a-bot
+[Create telegram bot](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
 
 Put your telegram bot api key in telegram_api.conf 
 
