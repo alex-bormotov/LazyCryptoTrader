@@ -1,3 +1,4 @@
+[](https://github.com/idl921/LazyCryptoTrader/blob/master/First%20prototype/pic.png)
 
 # LazyCryptoTrader
 This is my first project :)
@@ -5,7 +6,9 @@ This is my first project :)
 Install:
 
 pip3 install mpu
+
 pip3 install ccxt
+
 pip3 pyTelegramBotAPI
 
 [Create telegram bot](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
