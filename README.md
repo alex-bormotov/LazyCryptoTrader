@@ -1,7 +1,11 @@
-[](https://github.com/idl921/LazyCryptoTrader/blob/master/First%20prototype/pic.png)
-
 # LazyCryptoTrader
 This is my first project :)
+
+[Demo video](https://youtu.be/kf5EEH2kP2I)
+
+[Demo video (ru)](https://youtu.be/esUWkT-0Xds)
+
+<img src="https://github.com/idl921/LazyCryptoTrader/blob/master/First%20prototype/pic.png" width="700" height="450">
 
 Install:
 
