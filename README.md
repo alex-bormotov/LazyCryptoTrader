@@ -8,8 +8,6 @@ Make a repost of signals from the telegram group and the bot itself placed order
 
 [Demo video (ru)](https://youtu.be/esUWkT-0Xds)
 
-<img src="https://github.com/idl921/LazyCryptoTrader/blob/master/First%20prototype/pic.png" width="500" height="300">
-
 Install:
 
 pip3 install mpu
