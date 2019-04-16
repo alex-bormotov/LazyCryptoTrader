@@ -2,8 +2,6 @@
 
 This is my first project :)
 
-Make a repost of signals from the telegram group and the bot itself placed orders.
-
 [Demo video](https://youtu.be/kf5EEH2kP2I)
 
 [Demo video (ru)](https://youtu.be/esUWkT-0Xds)
