@@ -1,9 +1,3 @@
-# Copyright Oleksii Bormotov
-
-# if my code useful for you, say thanks:
-# btc 3EptFz7mhXKcuN8v6p3uAULjkwTvsciHhJ
-# eth 0xFe70F0D36eF279372146484Bc7a9604cA069fc3d
-
 import telebot
 import mpu.io
 import os
