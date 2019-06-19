@@ -1,4 +1,4 @@
-# Copyright Oleksii Bormotov
+# Copyright Alex Bormotov
 
 # if my code useful for you, say thanks:
 # btc 3EptFz7mhXKcuN8v6p3uAULjkwTvsciHhJ
