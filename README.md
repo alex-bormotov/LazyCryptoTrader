@@ -4,8 +4,6 @@ This is my first project :)
 
 [Demo video](https://youtu.be/kf5EEH2kP2I)
 
-[Demo video (ru)](https://youtu.be/esUWkT-0Xds)
-
 Install:
 
 pip3 install mpu
