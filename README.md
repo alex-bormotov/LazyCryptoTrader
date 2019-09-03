@@ -2,8 +2,6 @@
 
 This is my first project :)
 
-[Demo video](#LazyCryptoTrader.mp4)
-
 Install:
 
 pip3 install mpu
