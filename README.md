@@ -2,7 +2,7 @@
 
 This is my first project :)
 
-[Demo video](https://youtu.be/kf5EEH2kP2I)
+[Demo video](#LazyCryptoTrader.mp4)
 
 Install:
 
