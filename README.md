@@ -18,13 +18,3 @@ Start:
 
 python3 LazyCryptoTrader.py
 
-
----
-
-##### Donate
-
-> If my code was useful for you may buy me coffee:
-
-> [My Binance Referal Link](https://www.binance.com/en/register?ref=35560900)
-
-> ETH 0x4a92Eb0b09Dc2DC27D2C2a35f5A28eF7969dE528
